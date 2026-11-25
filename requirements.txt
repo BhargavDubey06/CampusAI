@@ -1,0 +1,11 @@
+Flask>=3.0
+python-dotenv>=1.0
+requests>=2.31
+numpy>=1.26
+pymupdf>=1.24
+pypdf>=4.0
+sentence-transformers>=3.0
+faiss-cpu>=1.8
+# OCR for scanned PDFs (also needs the Tesseract program installed, see README)
+pytesseract>=0.3
+Pillow>=10.0

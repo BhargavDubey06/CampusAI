@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CampusAI – College Knowledge Base</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="theme-docs">
+  <header class="top-nav" id="topNav">
+    <div class="container inner">
+      <a class="brand" href="index.html"><span class="brand-mark"><i data-lucide="graduation-cap" class="i"></i></span>CAMPUSAI</a>
+      <nav class="links">
+        <a href="index.html"><i data-lucide="house" class="i i-sm"></i>Home</a>
+        <a href="chatbot.html"><i data-lucide="message-circle" class="i i-sm"></i>Chat</a>
+        <a href="documents.html" class="active"><i data-lucide="library" class="i i-sm"></i>Documents</a>
+        <a href="admin.html" id="adminLink" hidden><i data-lucide="layout-dashboard" class="i i-sm"></i>Admin</a>
+      </nav>
+      <div class="right">
+        <div data-user-area="nav"></div>
+        <a class="btn-grad" href="chatbot.html"><i data-lucide="sparkles" class="i i-sm"></i>Start Chatting</a>
+      </div>
+      <button class="icon-btn nav-toggle" aria-label="Toggle menu"><i data-lucide="menu" class="i i-sm"></i></button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-head">
+      <h1>College Knowledge Base</h1>
+      <p>Manage, explore and search your college information.</p>
+    </div>
+
+    <!-- Upload (admins) -->
+    <section id="uploadSection" aria-label="Upload documents"></section>
+
+    <!-- Search + categories -->
+    <div class="toolbar">
+      <div class="search-box"><i data-lucide="search" class="i i-sm"></i><input id="searchInput" type="search" placeholder="Search college documents..." aria-label="Search college documents"></div>
+      <span id="countLabel" style="color:var(--muted);font-size:.85rem"></span>
+    </div>
+    <div class="cat-pills" id="catPills"></div>
+
+    <div class="doc-layout">
+      <div class="doc-list" id="docList"></div>
+
+      <aside class="preview-panel" id="previewPanel">
+        <div class="preview-empty"><i data-lucide="file-search" class="i"></i><h5 style="color:#3a3430">Select a document</h5><p>Choose a document from the list to preview it, read the extracted text and ask the AI about it.</p></div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/documents.js"></script>
+</body>
+</html>

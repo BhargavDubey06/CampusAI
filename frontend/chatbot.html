@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CampusAI – Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="theme-chat">
+  <div class="app-shell">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <div class="sidebar-head">
+        <a class="brand" href="index.html" title="Back to welcome page"><span class="brand-mark"><i data-lucide="graduation-cap" class="i"></i></span>CampusAI</a>
+        <button class="icon-btn menu-btn" id="sidebarClose" aria-label="Close menu"><i data-lucide="x" class="i i-sm"></i></button>
+      </div>
+
+      <nav class="side-nav">
+        <button class="side-item active" data-nav="new"><i data-lucide="square-pen" class="i"></i>New Chat</button>
+        <button class="side-item" data-nav="history" id="historyToggle"><i data-lucide="history" class="i"></i>Chat History<i data-lucide="chevron-right" class="i i-sm chev"></i></button>
+        <div class="history-list" id="historyList"></div>
+        <button class="side-item" data-nav="faqs"><i data-lucide="circle-help" class="i"></i>College FAQs</button>
+        <a class="side-item" href="documents.html" data-nav="docs"><i data-lucide="file-text" class="i"></i>Ask Documents</a>
+        <a class="side-item" href="features.html"><i data-lucide="list-check" class="i"></i>Checklists &amp; Reminders</a>
+        <button class="side-item" data-nav="notices"><i data-lucide="bell" class="i"></i>Notices</button>
+        <button class="side-item" data-nav="feedback"><i data-lucide="message-square-heart" class="i"></i>Feedback</button>
+        <button class="side-item" data-nav="settings"><i data-lucide="settings" class="i"></i>Settings</button>
+      </nav>
+
+      <div class="side-foot">
+        <a class="side-item" href="index.html"><i data-lucide="house" class="i"></i>Welcome page</a>
+        <a class="side-item" href="admin.html" id="adminLink" hidden><i data-lucide="layout-dashboard" class="i"></i>Admin dashboard</a>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" id="backdrop"></div>
+
+    <!-- ===== MAIN ===== -->
+    <main class="chat-main">
+      <section class="chat-card">
+        <header class="chat-top">
+          <div class="top-left">
+            <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu"><i data-lucide="menu" class="i i-sm"></i></button>
+            <label class="pill-select" title="AI model">
+              <i data-lucide="sparkles" class="i i-sm" style="color:var(--orange-soft)"></i>
+              <select id="modelSelect" aria-label="AI model"><option>CampusAI Assistant</option></select>
+              <i data-lucide="chevron-down" class="i i-sm"></i>
+            </label>
+            <div class="doc-context" id="docContext" hidden>
+              <i data-lucide="file-text" class="i i-sm"></i><span id="docContextName"></span>
+              <button id="docContextClear" aria-label="Stop asking about this document" title="Ask about all documents"><i data-lucide="x" class="i i-sm" style="width:12px;height:12px"></i></button>
+            </div>
+          </div>
+          <div class="top-right">
+            <label class="pill-select lang" title="Answer language">
+              <i data-lucide="globe" class="i i-sm"></i>
+              <select id="langSelect" aria-label="Language"><option value="English">English</option><option value="Hindi">हिन्दी</option><option value="Marathi">मराठी</option></select>
+            </label>
+            <div data-user-area="pill"></div>
+            <button class="icon-btn" id="topSettings" aria-label="Settings"><i data-lucide="settings" class="i i-sm"></i></button>
+          </div>
+        </header>
+
+        <div class="chat-body" id="chatBody">
+          <div class="welcome" id="welcome">
+            <div class="orb-wrap"><div class="orb"></div></div>
+            <h1>Let's get started.</h1>
+            <h2>How Can I Assist You Today?</h2>
+          </div>
+          <div class="messages" id="messages" hidden></div>
+        </div>
+
+        <div class="chat-input-wrap">
+          <form class="chat-input" id="chatForm" autocomplete="off">
+            <div class="field">
+              <i data-lucide="sparkles" class="i i-sm"></i>
+              <textarea id="chatInput" rows="2" maxlength="2000" placeholder="Ask me anything about your college..." aria-label="Message"></textarea>
+            </div>
+            <div class="input-bar">
+              <div class="l">
+                <a class="tool-btn" href="documents.html" title="Attach / upload college documents" aria-label="Attach documents"><i data-lucide="paperclip" class="i i-sm"></i></a>
+              </div>
+              <div class="r">
+                <button type="button" class="tool-btn" id="micBtn" title="Speak your question" aria-label="Voice input"><i data-lucide="mic" class="i i-sm"></i></button>
+                <button type="submit" class="send-btn" id="sendBtn" aria-label="Send" disabled><i data-lucide="arrow-up" class="i i-sm"></i></button>
+              </div>
+            </div>
+          </form>
+          <div class="chips" id="chips">
+            <button class="chip" data-q="What are the college fees?"><i data-lucide="indian-rupee" class="i i-sm"></i>College Fees</button>
+            <button class="chip" data-q="What is the exam timetable?"><i data-lucide="calendar-days" class="i i-sm"></i>Exam Timetable</button>
+            <button class="chip" data-q="What is the admission process?"><i data-lucide="user-plus" class="i i-sm"></i>Admission Process</button>
+            <button class="chip" data-q="What are the latest college notices?"><i data-lucide="megaphone" class="i i-sm"></i>College Notices</button>
+            <button class="chip" data-q="What scholarships are available?"><i data-lucide="award" class="i i-sm"></i>Scholarships</button>
+          </div>
+          <div class="disclaimer">CampusAI answers only from uploaded college documents. Verify important details with the college office.</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ===== MODALS ===== -->
+  <div class="modal fade" id="faqModal" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"><div class="modal-content c-modal">
+    <div class="modal-header"><h5 class="modal-title">College FAQs</h5><button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+    <div class="modal-body" id="faqBody"></div>
+  </div></div></div>
+
+  <div class="modal fade" id="noticesModal" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"><div class="modal-content c-modal">
+    <div class="modal-header"><h5 class="modal-title">Notices &amp; Circulars</h5><button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+    <div class="modal-body" id="noticesBody"></div>
+    <div class="modal-footer"><a class="btn-ghost" href="documents.html">All documents</a></div>
+  </div></div></div>
+
+  <div class="modal fade" id="feedbackModal" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content c-modal">
+    <form id="feedbackForm">
+      <div class="modal-header"><h5 class="modal-title">Send feedback</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-body">
+        <label class="c-label" for="fbText">How can we improve CampusAI?</label>
+        <textarea class="c-textarea" id="fbText" rows="4" maxlength="2000" required></textarea>
+        <label class="c-label mt-3" for="fbContact">Email (optional)</label>
+        <input class="c-input" id="fbContact" type="email" maxlength="200">
+        <div class="form-error mt-2" id="fbError"></div>
+      </div>
+      <div class="modal-footer"><button type="submit" class="btn-grad" id="fbSubmit">Submit feedback</button></div>
+    </form>
+  </div></div></div>
+
+  <div class="modal fade" id="settingsModal" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content c-modal">
+    <div class="modal-header"><h5 class="modal-title">Settings</h5><button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+    <div class="modal-body">
+      <label class="c-label" for="settingsLang">Answer language</label>
+      <select class="c-select mb-3" id="settingsLang"><option value="English">English</option><option value="Hindi">हिन्दी (Hindi)</option><option value="Marathi">मराठी (Marathi)</option></select>
+      <label class="c-label">Chat history</label>
+      <button class="btn-danger-soft" id="clearHistory"><i data-lucide="trash-2" class="i i-sm"></i>Clear all my chats</button>
+      <div class="mt-3" id="settingsStatus" style="font-size:.82rem;color:var(--muted)"></div>
+    </div>
+  </div></div></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>
